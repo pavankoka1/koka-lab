@@ -1,0 +1,84 @@
+@import "tailwindcss";
+
+:root {
+  --bg-deep: #050508;
+  --bg-elevated: #0c0c12;
+  --bg-secondary: #12121a;
+  --bg-tertiary: #1e1e2a;
+  --text-primary: #f4f4f8;
+  --text-muted: #5c5c6e;
+  --text-dim: #3a3a48;
+  --accent: #a78bfa;
+  --accent-hot: #c4b5fd;
+  --stroke: rgba(167, 139, 250, 0.12);
+  --glow: rgba(139, 92, 246, 0.15);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--bg-deep);
+  color: var(--text-primary);
+  font-feature-settings: "ss01" on, "cv01" on;
+}
+
+::selection {
+  background: rgba(167, 139, 250, 0.35);
+  color: #fff;
+}
+
+/* Film grain overlay — GPU-friendly opacity animation */
+.grain {
+  pointer-events: none;
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  opacity: 0.045;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  animation: grainShift 8s steps(10) infinite;
+}
+
+@keyframes grainShift {
+  0%,
+  100% {
+    transform: translate(0, 0);
+  }
+  25% {
+    transform: translate(-2%, 2%);
+  }
+  50% {
+    transform: translate(2%, -1%);
+  }
+  75% {
+    transform: translate(-1%, -2%);
+  }
+}
+
+@keyframes meshDrift {
+  0%,
+  100% {
+    transform: translate(0, 0) rotate(0deg);
+  }
+  33% {
+    transform: translate(2%, 1%) rotate(1deg);
+  }
+  66% {
+    transform: translate(-1%, 2%) rotate(-0.5deg);
+  }
+}
+
+.mesh-drift {
+  animation: meshDrift 28s ease-in-out infinite;
+}
+
+/* Horizontal labs: hide scrollbar, keep scroll */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
