@@ -25,6 +25,13 @@ export const site = {
       accent: "#818cf8",
     },
     {
+      slug: "react-props-children-memo",
+      title: "React props vs children",
+      subtitle: "Elements & ownership — prop, children, or memo on Child.",
+      href: "https://react-props-children-demo-nine.vercel.app/",
+      accent: "#22d3ee",
+    },
+    {
       slug: "layout-thrashing",
       title: "Layout thrashing & reflow",
       subtitle: "Forced sync layout, batching, DevTools.",

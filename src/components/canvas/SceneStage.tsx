@@ -174,31 +174,37 @@ export function SceneStage({ scrollT }: Props) {
       objectDiameter *
       cfg.motion.floatExtentFraction;
 
-    const rotEnd = cfg.scroll.rotation.phaseEnd;
-    const rotAxis = cfg.scroll.rotation.axis as "x" | "y" | "z";
-    const p2Axis = cfg.scroll.zoom.phase2RotationAxis as "x" | "y" | "z";
+    const rotEnd = cfg.scroll.phaseEnd;
+    const rotAxis = cfg.scroll.axis as "x" | "y" | "z";
+    const [rotSeg1, rotSeg2Extra] = cfg.scroll.rot;
+    const [[d1a, d1b], [d2a, d2b]] = cfg.scroll.dist;
     let rx = 0;
     let ry = 0;
     let rz = 0;
     let zoomT = 0;
+    let distMul = 1;
 
     if (scroll <= rotEnd) {
       const u = rotEnd > 0 ? scroll / rotEnd : 1;
-      const angle = easeInOutCubic(u) * cfg.scroll.rotation.amountRad;
+      const e = easeInOutCubic(u);
+      distMul = THREE.MathUtils.lerp(d1a, d1b, e);
+      const angle = e * rotSeg1;
       if (rotAxis === "x") rx = angle;
       else if (rotAxis === "y") ry = angle;
       else rz = angle;
     } else {
-      const end = cfg.scroll.rotation.amountRad;
+      const end = rotSeg1;
       if (rotAxis === "x") rx = end;
       else if (rotAxis === "y") ry = end;
       else rz = end;
 
-      const u = (scroll - rotEnd) / (1 - rotEnd);
+      const denom = 1 - rotEnd;
+      const u = denom > 1e-9 ? (scroll - rotEnd) / denom : 1;
       zoomT = easeInOutCubic(u);
-      const p2 = zoomT * cfg.scroll.zoom.phase2RotationAmountRad;
-      if (p2Axis === "x") rx += p2;
-      else if (p2Axis === "y") ry += p2;
+      distMul = THREE.MathUtils.lerp(d2a, d2b, zoomT);
+      const p2 = zoomT * rotSeg2Extra;
+      if (rotAxis === "x") rx += p2;
+      else if (rotAxis === "y") ry += p2;
       else rz += p2;
     }
 
@@ -212,11 +218,7 @@ export function SceneStage({ scrollT }: Props) {
     const r = boundingRadius.current;
     d0 = Math.max(d0, r * 1.08);
 
-    const dist = THREE.MathUtils.lerp(
-      d0,
-      d0 * cfg.scroll.zoom.endDistanceMul,
-      zoomT
-    );
+    const dist = d0 * distMul;
 
     const lt = lookTarget.current;
     const basePos = lt

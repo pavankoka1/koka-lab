@@ -129,6 +129,10 @@ export default function RootLayout({
         <link rel="dns-prefetch" href="https://react-re-render.vercel.app" />
         <link
           rel="dns-prefetch"
+          href="https://react-props-children-demo-nine.vercel.app"
+        />
+        <link
+          rel="dns-prefetch"
           href="https://layout-thrashing-demo.vercel.app"
         />
         <link
