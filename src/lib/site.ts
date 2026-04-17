@@ -1,5 +1,7 @@
 export const site = {
   name: "Pavan Koka",
+  /** 3D wordmark text in `KokaMark3D` */
+  brand: "KOKA",
   title: "Pavan Koka — Frontend engineer · WebGL & performance",
   shortTitle: "Pavan Koka",
   description:

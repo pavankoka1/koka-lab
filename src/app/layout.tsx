@@ -43,12 +43,18 @@ export const metadata: Metadata = {
     "Vue",
     "performance",
     "layout thrashing",
-    "real-time",
+    "React Three Fiber",
     "Three.js",
+    "interactive",
+    "portfolio",
   ],
   category: "technology",
   alternates: {
     canonical: "/",
+  },
+  icons: {
+    icon: [{ url: "/icon.svg", type: "image/svg+xml", sizes: "any" }],
+    apple: [{ url: "/apple-icon", sizes: "180x180", type: "image/png" }],
   },
   openGraph: {
     type: "website",
@@ -62,6 +68,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: site.title,
     description: site.description,
+    site: site.twitter,
     creator: site.twitter,
   },
   robots: {
@@ -70,6 +77,8 @@ export const metadata: Metadata = {
     googleBot: {
       index: true,
       follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
     },
   },
   formatDetection: {
@@ -78,6 +87,8 @@ export const metadata: Metadata = {
     address: false,
   },
 };
+
+const ogImageUrl = `${site.url}/opengraph-image`;
 
 const jsonLd = {
   "@context": "https://schema.org",
@@ -89,6 +100,7 @@ const jsonLd = {
       name: site.name,
       description: site.description,
       inLanguage: "en-US",
+      image: ogImageUrl,
       publisher: { "@id": `${site.url}/#person` },
     },
     {
@@ -97,6 +109,7 @@ const jsonLd = {
       name: site.author,
       url: site.url,
       email: site.email,
+      image: ogImageUrl,
       jobTitle: "Senior Software Engineer (Frontend)",
       sameAs: [site.links.linkedin, site.links.github],
     },

@@ -48,7 +48,7 @@ function defaultFractions(n: number): number[] {
 function lineScaleFromSectionProgress(
   p: number,
   th: readonly number[],
-  fr: readonly number[]
+  fr: readonly number[],
 ): number {
   const n = fr.length;
   if (n <= 0) return 0;
@@ -79,7 +79,7 @@ function lineScaleFromSectionProgress(
 function isCardHit(
   index: number,
   thresholds: readonly number[],
-  progress: number
+  progress: number,
 ) {
   const p = clamp01(progress);
   const t = thresholds[index] ?? 0;
@@ -89,7 +89,7 @@ function isCardHit(
 function latestHitIndex(
   total: number,
   thresholds: readonly number[],
-  progress: number
+  progress: number,
 ) {
   let last = -1;
   for (let i = 0; i < total; i++) {
@@ -100,7 +100,7 @@ function latestHitIndex(
 
 function measureDotFractions(
   rail: HTMLElement,
-  dotElements: (HTMLElement | null | undefined)[]
+  dotElements: (HTMLElement | null | undefined)[],
 ): number[] {
   const railRect = rail.getBoundingClientRect();
   const h = railRect.height;
@@ -120,7 +120,7 @@ type Props = {
 
 export const Timeline = forwardRef<HTMLElement, Props>(function Timeline(
   { scrollYProgress },
-  ref
+  ref,
 ) {
   const total = timeline.length;
   const thresholds = TIMELINE_ACTIVATION_SCROLL;
@@ -133,11 +133,11 @@ export const Timeline = forwardRef<HTMLElement, Props>(function Timeline(
 
   const fractions = useMemo(
     () => dotFractions ?? defaultFractions(total),
-    [dotFractions, total]
+    [dotFractions, total],
   );
 
   const lineScale = useTransform(scrollYProgress, (p) =>
-    lineScaleFromSectionProgress(p, thresholds, fractions)
+    lineScaleFromSectionProgress(p, thresholds, fractions),
   );
 
   const measure = useCallback(() => {
@@ -185,7 +185,7 @@ export const Timeline = forwardRef<HTMLElement, Props>(function Timeline(
 
   const latestIdx = useMemo(
     () => latestHitIndex(total, thresholds, sectionProgress),
-    [total, thresholds, sectionProgress]
+    [total, thresholds, sectionProgress],
   );
 
   const setDotRef = useCallback((index: number) => {
@@ -208,7 +208,7 @@ export const Timeline = forwardRef<HTMLElement, Props>(function Timeline(
           id="timeline-heading"
           className="mt-4 max-w-xl font-[family-name:var(--font-display)] text-3xl font-semibold tracking-tight text-[var(--text-primary)] sm:text-4xl"
         >
-          Scroll the timeline — the 3D scene follows. Details stay in the PDF.
+          Scroll the timeline
         </h2>
       </div>
 
