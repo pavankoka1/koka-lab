@@ -200,7 +200,7 @@ export const Timeline = forwardRef<HTMLElement, Props>(function Timeline(
       className="relative min-h-[220vh] px-6 py-28 sm:px-10"
       aria-labelledby="timeline-heading"
     >
-      <div className="pointer-events-none sticky top-28 z-[5] mb-24 max-w-6xl sm:top-32">
+      <div className="mx-auto mb-20 max-w-3xl sm:mb-24">
         <p className="font-mono text-xs uppercase tracking-[0.4em] text-[var(--text-muted)]">
           Experience
         </p>
@@ -208,7 +208,7 @@ export const Timeline = forwardRef<HTMLElement, Props>(function Timeline(
           id="timeline-heading"
           className="mt-4 max-w-xl font-[family-name:var(--font-display)] text-3xl font-semibold tracking-tight text-[var(--text-primary)] sm:text-4xl"
         >
-          Scroll the timeline
+          Six years across real-time gaming, fintech, and edtech.
         </h2>
       </div>
 

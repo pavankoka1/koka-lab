@@ -53,7 +53,7 @@ export default function OpenGraphImage() {
             maxWidth: 820,
           }}
         >
-          Frontend engineer · WebGL & performance — interactive labs & real-time web.
+          Senior Frontend Engineer · Real-time, WebGL & rendering performance.
         </div>
         <div
           style={{

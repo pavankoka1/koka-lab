@@ -114,14 +114,23 @@ const jsonLd = {
       sameAs: [site.links.linkedin, site.links.github],
     },
     {
+      "@type": "CreativeWork",
+      "@id": `${site.url}/#featured`,
+      name: site.featured.title,
+      url: site.featured.href,
+      description: site.featured.description,
+      creator: { "@id": `${site.url}/#person` },
+    },
+    {
       "@type": "ItemList",
       "@id": `${site.url}/#labs`,
-      name: "Interactive performance labs",
+      name: "Engineering studies — frontend performance & real-time",
       itemListElement: site.labs.map((lab, i) => ({
         "@type": "ListItem",
         position: i + 1,
         name: lab.title,
         url: lab.href,
+        description: lab.subtitle,
       })),
     },
   ],
@@ -151,6 +160,22 @@ export default function RootLayout({
         <link
           rel="dns-prefetch"
           href="https://gpu-vs-cpu-animations.vercel.app"
+        />
+        <link rel="dns-prefetch" href="https://svg-to-canvas.vercel.app" />
+        <link
+          rel="dns-prefetch"
+          href="https://web-worker-animation.vercel.app"
+        />
+        <link
+          rel="dns-prefetch"
+          href="https://web-worker-ref-update.vercel.app"
+        />
+        <link rel="dns-prefetch" href="https://a-billion-dreams.vercel.app" />
+        <link
+          rel="preload"
+          as="image"
+          href="/dreams-fire.svg"
+          type="image/svg+xml"
         />
       </head>
       <body className="min-h-screen overflow-x-hidden font-[family-name:var(--font-display)] antialiased">

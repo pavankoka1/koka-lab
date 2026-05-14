@@ -4,8 +4,13 @@ import { useMotionValueEvent, useScroll } from "framer-motion";
 import { useEffect, useRef } from "react";
 
 /**
- * Fixed “instrument” — Lissajous phase portrait + orbital scroll ring.
- * Distinct from cursor-following eyes; ties to page scroll and time.
+ * Top-right "instrument" — a Lissajous phase portrait wrapped in an
+ * orbital scroll-progress ring. Tied to scroll + pointer + time.
+ *
+ * Performance:
+ *   - CSS variables are read ONCE at mount, not on every frame.
+ *   - Throttled to ~30 FPS — looks identical, halves rAF body cost.
+ *   - rAF is parked when the tab is hidden (`visibilitychange`).
  */
 export function SiteBeacon() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -35,12 +40,29 @@ export function SiteBeacon() {
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
-    const ctx = canvas.getContext("2d");
+    const ctx = canvas.getContext("2d", { alpha: true });
     if (!ctx) return;
 
     const css = 88;
-    let animId = 0;
-    const t0 = performance.now();
+
+    // ---- CSS variables: read ONCE at mount --------------------------------
+    const root = document.documentElement;
+    const accent =
+      getComputedStyle(root).getPropertyValue("--accent").trim() || "#a78bfa";
+    const dim =
+      getComputedStyle(root).getPropertyValue("--text-dim").trim() || "#3a3a48";
+    const stroke =
+      getComputedStyle(root).getPropertyValue("--stroke").trim() ||
+      "rgba(167,139,250,0.12)";
+
+    // Pre-build the static gradient stop colors that don't depend on time.
+    const gradStart = `${accent}cc`;
+    const gradMid = "rgba(196,181,253,0.55)";
+    const gradEnd = `${dim}99`;
+
+    let alive = true;
+    let raf = 0;
+    let docHidden = false;
 
     const resize = () => {
       const dpr = Math.min(window.devicePixelRatio || 1, 2);
@@ -53,7 +75,16 @@ export function SiteBeacon() {
     resize();
     window.addEventListener("resize", resize);
 
-    const draw = (now: number) => {
+    const onVisibility = () => {
+      docHidden = document.hidden;
+    };
+    document.addEventListener("visibilitychange", onVisibility);
+
+    const t0 = performance.now();
+    const FRAME_MS = 1000 / 30;
+    let lastDraw = 0;
+
+    const drawFrame = (now: number) => {
       const t = (now - t0) / 1000;
       const cx = css / 2;
       const cy = css / 2;
@@ -61,16 +92,6 @@ export function SiteBeacon() {
       const { x: px, y: py } = pointerRef.current;
 
       ctx.clearRect(0, 0, css, css);
-
-      const root = document.documentElement;
-      const accent =
-        getComputedStyle(root).getPropertyValue("--accent").trim() || "#a78bfa";
-      const dim =
-        getComputedStyle(root).getPropertyValue("--text-dim").trim() ||
-        "#3a3a48";
-      const stroke =
-        getComputedStyle(root).getPropertyValue("--stroke").trim() ||
-        "rgba(167,139,250,0.12)";
 
       /* Outer orbit — scroll progress */
       const rOuter = 38;
@@ -80,7 +101,7 @@ export function SiteBeacon() {
         cy,
         rOuter,
         -Math.PI / 2,
-        -Math.PI / 2 + scroll * Math.PI * 2
+        -Math.PI / 2 + scroll * Math.PI * 2,
       );
       ctx.strokeStyle = accent;
       ctx.lineWidth = 1.5;
@@ -98,7 +119,7 @@ export function SiteBeacon() {
       const wobble = (px - 0.5) * 0.4;
       const a = 22 + wobble * 6;
       const b = 18 - (py - 0.5) * 4;
-      const n = 140;
+      const n = 100;
       ctx.beginPath();
       for (let i = 0; i <= n; i++) {
         const u = (i / n) * Math.PI * 2;
@@ -108,9 +129,9 @@ export function SiteBeacon() {
         else ctx.lineTo(x, y);
       }
       const g = ctx.createLinearGradient(cx - a, cy - b, cx + a, cy + b);
-      g.addColorStop(0, `${accent}cc`);
-      g.addColorStop(0.5, "rgba(196,181,253,0.55)");
-      g.addColorStop(1, `${dim}99`);
+      g.addColorStop(0, gradStart);
+      g.addColorStop(0.5, gradMid);
+      g.addColorStop(1, gradEnd);
       ctx.strokeStyle = g;
       ctx.lineWidth = 1.25;
       ctx.lineCap = "round";
@@ -124,15 +145,26 @@ export function SiteBeacon() {
       ctx.fillStyle = accent;
       ctx.fill();
     };
+
     const tick = (now: number) => {
-      draw(now);
-      animId = requestAnimationFrame(tick);
+      if (!alive) return;
+      raf = requestAnimationFrame(tick);
+      if (docHidden) return;
+      // Throttle: skip frames until at least FRAME_MS has elapsed.
+      if (now - lastDraw < FRAME_MS) return;
+      lastDraw = now;
+      drawFrame(now);
     };
-    animId = requestAnimationFrame(tick);
+
+    // Seed an initial paint so the beacon is present even before throttling.
+    drawFrame(performance.now());
+    raf = requestAnimationFrame(tick);
 
     return () => {
-      cancelAnimationFrame(animId);
+      alive = false;
+      cancelAnimationFrame(raf);
       window.removeEventListener("resize", resize);
+      document.removeEventListener("visibilitychange", onVisibility);
     };
   }, []);
 

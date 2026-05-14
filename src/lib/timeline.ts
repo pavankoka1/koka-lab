@@ -24,7 +24,8 @@ export const timeline: TimelineEntry[] = [
     to: "Present",
     role: "Senior Software Engineer (SDE III) · Frontend",
     org: "Pragmatic Play",
-    focus: "WebGL, GLSL, live casino — 60fps real-time graphics",
+    focus:
+      "Built real-time casino interfaces with WebGL/GLSL pipelines tuned for consistent 60fps delivery.",
   },
   {
     id: "cred",
@@ -32,7 +33,8 @@ export const timeline: TimelineEntry[] = [
     to: "Jul 2025",
     role: "Senior Software Engineer",
     org: "CRED (Prefr / CreditVidya)",
-    focus: "Vue 3, performance — 92+ Lighthouse, animations at scale",
+    focus:
+      "Scaled Vue 3 lending experiences and frontend architecture while sustaining 92+ Lighthouse on key journeys.",
   },
   {
     id: "byjus",
@@ -40,7 +42,8 @@ export const timeline: TimelineEntry[] = [
     to: "Oct 2023",
     role: "Senior Software Engineer",
     org: "Byju’s · Toppr & Aakash",
-    focus: "Next.js, sockets, SSR — edtech & test player at scale",
+    focus:
+      "Led Next.js and socket-driven learning/testing experiences across SSR surfaces used by high-traffic cohorts.",
   },
 ];
 
@@ -48,5 +51,6 @@ export const education = {
   school: "IIIT Gwalior",
   degree: "M.Tech · Computer Science & Engineering",
   years: "2014 — 2019",
-  note: "Core CS, festival web apps, sports (chess, TT, cricket)",
+  note:
+    "Coursework in core computer science with a focus on systems thinking and production-grade software engineering.",
 } as const;
