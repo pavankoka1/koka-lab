@@ -1,23 +1,34 @@
 "use client";
 
 import { site } from "@/lib/site";
-import { useEffect, useRef } from "react";
+import { AnimatePresence, motion } from "framer-motion";
+import { useEffect, useRef, useState } from "react";
 
 /**
- * Top-left identity tile.
- *
- * The mark is a clean K monogram. A vertical scan band travels top→bottom
- * on a slow loop, briefly brightening each part of the K it crosses.
- *
- * Performance:
- *   - CSS variables are read once at mount, not on every frame.
- *   - Throttled to ~30 FPS — the scan band reads identical at 30 vs 60 fps,
- *     and halving the rAF rate halves the CPU cost of the loop.
- *   - rAF is parked when the tab is hidden (`visibilitychange`).
- *   - `prefers-reduced-motion` parks the scan at the centre of the K.
+ * Roles cycled in the subtitle below the wordmark — soft fade, one swap
+ * every ~3.2 seconds. Cheap to render: a single state update per swap,
+ * Framer Motion handles the cross-fade. Browsers throttle setInterval
+ * to 1 Hz on hidden tabs, so no explicit visibility pause is needed.
  */
+const ROLES = [
+  "Frontend · SDE III",
+  "Real-time · WebGL",
+  "Render performance",
+  "Six years shipping",
+] as const;
+
+const ROLE_INTERVAL_MS = 3200;
+
 export function ParticleLogoMark() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const [roleIdx, setRoleIdx] = useState(0);
+
+  useEffect(() => {
+    const id = setInterval(() => {
+      setRoleIdx((i) => (i + 1) % ROLES.length);
+    }, ROLE_INTERVAL_MS);
+    return () => clearInterval(id);
+  }, []);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -186,13 +197,26 @@ export function ParticleLogoMark() {
     <div className="fixed left-5 top-5 z-[60] sm:left-8 sm:top-8" aria-hidden>
       <div className="flex items-center gap-3 rounded-full border border-[var(--stroke)] bg-[var(--bg-secondary)]/70 py-2 pl-2 pr-3.5 shadow-[0_0_30px_rgba(139,92,246,0.12)] backdrop-blur-md">
         <canvas ref={canvasRef} width={52} height={52} className="block" />
-        <div>
+        <div className="min-w-[160px]">
           <p className="font-[family-name:var(--font-display)] text-[13px] font-semibold leading-none tracking-tight text-[var(--text-primary)]">
-            {site.author}
+            <span className="bg-gradient-to-r from-[var(--text-primary)] via-[var(--accent-hot)] to-[var(--text-primary)] bg-[length:200%_100%] bg-clip-text text-transparent [animation:shimmerSlide_6s_linear_infinite]">
+              {site.author}
+            </span>
           </p>
-          <p className="mt-1 font-mono text-[9px] uppercase tracking-[0.32em] text-[var(--text-dim)]">
-            Frontend · SDE III
-          </p>
+          <div className="relative mt-1.5 h-[10px] overflow-hidden">
+            <AnimatePresence mode="wait" initial={false}>
+              <motion.span
+                key={ROLES[roleIdx]}
+                initial={{ opacity: 0, y: 6 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -6 }}
+                transition={{ duration: 0.32, ease: [0.22, 1, 0.36, 1] }}
+                className="absolute inset-0 font-mono text-[9px] uppercase leading-none tracking-[0.32em] text-[var(--text-muted)]"
+              >
+                {ROLES[roleIdx]}
+              </motion.span>
+            </AnimatePresence>
+          </div>
         </div>
       </div>
     </div>

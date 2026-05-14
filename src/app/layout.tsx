@@ -122,6 +122,17 @@ const jsonLd = {
       creator: { "@id": `${site.url}/#person` },
     },
     {
+      "@type": "SoftwareApplication",
+      "@id": `${site.url}/#perftrace`,
+      name: site.product.title,
+      url: site.product.href,
+      description: site.product.description,
+      applicationCategory: "DeveloperApplication",
+      operatingSystem: site.product.platforms,
+      offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
+      author: { "@id": `${site.url}/#person` },
+    },
+    {
       "@type": "ItemList",
       "@id": `${site.url}/#labs`,
       name: "Engineering studies — frontend performance & real-time",
@@ -171,6 +182,10 @@ export default function RootLayout({
           href="https://web-worker-ref-update.vercel.app"
         />
         <link rel="dns-prefetch" href="https://a-billion-dreams.vercel.app" />
+        <link
+          rel="dns-prefetch"
+          href="https://performance-testing-website.vercel.app"
+        />
         <link
           rel="preload"
           as="image"

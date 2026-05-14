@@ -33,6 +33,26 @@ export type FeaturedWork = {
   accent: string;
 };
 
+export type ShippedProduct = {
+  slug: string;
+  href: string;
+  /** Section eyebrow */
+  eyebrow: string;
+  /** Product name */
+  title: string;
+  /** One-line tagline */
+  tagline: string;
+  /** 2–3 sentences explaining what the product does */
+  description: string;
+  /** 3–4 capability rows — what the tool actually does */
+  capabilities: readonly { label: string; value: string }[];
+  /** Tech stack chips */
+  stack: readonly string[];
+  /** Where it ships (e.g. "Windows · macOS · Linux") */
+  platforms: string;
+  accent: string;
+};
+
 export const site = {
   name: "Pavan Koka",
   /** 3D wordmark text in `KokaMark3D` */
@@ -52,7 +72,7 @@ export const site = {
     github: "https://github.com/pavankoka1",
   },
   summary:
-    "Six years owning end-to-end frontend at Pragmatic Play, CRED, and Byju's. I focus on the parts of the stack users feel — frame budget, real-time correctness, and the architectural choices that decide whether an interface holds up under production load.",
+    "Protect the frame. Measure what matters. Ship what holds.",
   highlights: [
     "Senior Frontend Engineer · SDE III",
     "Real-time systems · WebSocket / Socket.io",
@@ -106,6 +126,42 @@ export const site = {
     stack: ["Next.js", "WebGL", "Scroll-driven", "Particle systems"],
     accent: "#f59e0b",
   } as FeaturedWork,
+
+  /**
+   * Open-source product — a substantial, shipped tool that gets its own
+   * dedicated section between the featured narrative work and the
+   * engineering studies grid.
+   */
+  product: {
+    slug: "perftrace",
+    href: "https://performance-testing-website.vercel.app/",
+    eyebrow: "Open-source product",
+    title: "PerfTrace",
+    tagline: "Self-hosted performance testing for any URL.",
+    description:
+      "A desktop app and web service that drives Chromium with Playwright + CDP tracing. Point it at any URL, start a session, and get a frame-accurate report — FPS, Web Vitals, CPU, and a synced session video. Works offline, ships for every major OS.",
+    capabilities: [
+      {
+        label: "Tracing",
+        value: "Playwright + CDP — frame-accurate timeline & long-task detection.",
+      },
+      {
+        label: "Metrics",
+        value: "FPS · LCP · CLS · CPU · Frame time, captured live during the run.",
+      },
+      {
+        label: "Capture",
+        value: "Synced session video, downloadable WebM, viewable inside the report.",
+      },
+      {
+        label: "Distribution",
+        value: "Electron desktop · web service · Docker / VPS — fully offline.",
+      },
+    ],
+    stack: ["Electron", "Playwright", "Node.js", "React", "Vite", "Express"],
+    platforms: "Windows · macOS · Linux · Web",
+    accent: "#8b5cf6",
+  } as ShippedProduct,
 
   /**
    * Engineering studies — performance and architecture demos. Each one

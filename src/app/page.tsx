@@ -1,11 +1,13 @@
 "use client";
 
 import { AmbientBackdrop } from "@/components/AmbientBackdrop";
+import { CyclingHeadline } from "@/components/CyclingHeadline";
 import { FeaturedWork } from "@/components/FeaturedWork";
 import { HorizontalLabs } from "@/components/HorizontalLabs";
 import { LoadingOverlay } from "@/components/LoadingOverlay";
 import { ParticleLogoMark } from "@/components/ParticleLogoMark";
 import { ScrollWordReveal } from "@/components/ScrollWordReveal";
+import { ShippedProduct } from "@/components/ShippedProduct";
 import { SiteBeacon } from "@/components/SiteBeacon";
 import { Timeline } from "@/components/Timeline";
 import { useDocumentScroll } from "@/hooks/useDocumentScroll";
@@ -72,7 +74,12 @@ export default function Home() {
               {site.author} · senior frontend engineer · sde iii
             </p>
             <h1 className="mt-6 max-w-[14ch] font-[family-name:var(--font-display)] text-[clamp(2.6rem,7.4vw,5rem)] font-semibold leading-[0.96] tracking-tight text-[var(--text-primary)]">
-              Real-time frontends, engineered frame by frame.
+              <span
+                className="relative block"
+                style={{ minHeight: "1.95em" }}
+              >
+                <CyclingHeadline />
+              </span>
             </h1>
             <p className="mt-10 max-w-2xl text-lg leading-relaxed text-[var(--text-muted)] sm:text-xl">
               {site.summary}
@@ -158,6 +165,8 @@ export default function Home() {
         </section>
 
         <FeaturedWork />
+
+        <ShippedProduct />
 
         <HorizontalLabs />
 
