@@ -26,7 +26,7 @@ export function FeaturedWork() {
         aria-hidden
         className="pointer-events-none absolute inset-0 opacity-60"
         style={{
-          background: `radial-gradient(ellipse 60% 50% at 80% 30%, ${featured.accent}1f 0%, transparent 60%), radial-gradient(ellipse 50% 40% at 12% 80%, rgba(167,139,250,0.12) 0%, transparent 65%)`,
+          background: `radial-gradient(ellipse 60% 50% at 80% 30%, ${featured.accent}1f 0%, transparent 60%), radial-gradient(ellipse 50% 40% at 12% 80%, rgba(255,255,255,0.04) 0%, transparent 65%)`,
         }}
       />
 
@@ -78,10 +78,10 @@ export function FeaturedWork() {
             {featured.notes.map((note, i) => (
               <motion.div
                 key={note.label}
-                initial={{ opacity: 0, y: 12 }}
-                whileInView={{ opacity: 1, y: 0 }}
+                initial={{ opacity: 0, filter: "blur(8px)" }}
+                whileInView={{ opacity: 1, filter: "blur(0px)" }}
                 viewport={{ once: true, margin: "-80px" }}
-                transition={{ duration: 0.5, delay: 0.15 + i * 0.05 }}
+                transition={{ duration: 1.8, ease: [0.16, 1, 0.3, 1], delay: 0.15 + i * 0.12 }}
                 className="rounded-xl border border-[var(--stroke)] bg-[var(--bg-secondary)]/50 p-4"
               >
                 <p
