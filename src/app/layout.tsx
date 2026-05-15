@@ -1,16 +1,28 @@
 import { site } from "@/lib/site";
 import type { Metadata, Viewport } from "next";
-import { JetBrains_Mono, Space_Grotesk } from "next/font/google";
+import {
+  Cormorant_Garamond,
+  IBM_Plex_Mono,
+  IBM_Plex_Sans,
+} from "next/font/google";
 import "./globals.css";
 
-const display = Space_Grotesk({
+const display = Cormorant_Garamond({
   subsets: ["latin"],
   variable: "--font-display",
   display: "swap",
-  weight: ["400", "500", "600", "700"],
+  weight: ["300", "400"],
+  style: ["normal", "italic"],
 });
 
-const mono = JetBrains_Mono({
+const body = IBM_Plex_Sans({
+  subsets: ["latin"],
+  variable: "--font-body",
+  display: "swap",
+  weight: ["300", "400"],
+});
+
+const mono = IBM_Plex_Mono({
   subsets: ["latin"],
   variable: "--font-mono",
   display: "swap",
@@ -153,7 +165,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${display.variable} ${mono.variable}`}>
+    <html lang="en" className={`${display.variable} ${body.variable} ${mono.variable}`}>
       <head>
         <script
           type="application/ld+json"
