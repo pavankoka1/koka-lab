@@ -4,12 +4,8 @@ import { Environment, useProgress } from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
 import { Suspense, useCallback, useEffect, useRef } from "react";
 import * as THREE from "three";
-import { MeshoptDecoder } from "meshoptimizer";
 import { SceneStage } from "./SceneStage";
 import { SCENE_CONFIG } from "./sceneConfig";
-
-// Register MeshoptDecoder so drei's useGLTF can decode meshopt-compressed GLBs
-(THREE as unknown as { MeshoptDecoder: unknown }).MeshoptDecoder = MeshoptDecoder;
 
 type Props = {
   scrollT: number;
