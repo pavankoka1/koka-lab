@@ -84,18 +84,25 @@ export function CyclingHeadline() {
         variants={PARENT_VARIANTS}
         className="block"
       >
-        {words.map((word, i) => (
-          <Fragment key={`${text}-${i}`}>
-            {i > 0 && " "}
-            <motion.span
-              variants={WORD_VARIANTS}
-              transition={WORD_TRANSITION}
-              className="inline-block"
-            >
-              {word}
-            </motion.span>
-          </Fragment>
-        ))}
+        {words.map((word, i) => {
+          const isLast = i === words.length - 1;
+          return (
+            <Fragment key={`${text}-${i}`}>
+              {i > 0 && " "}
+              <motion.span
+                variants={WORD_VARIANTS}
+                transition={WORD_TRANSITION}
+                className={
+                  isLast
+                    ? "inline-block bg-gradient-to-r from-[#00b4ff] to-[#00ffc8] bg-clip-text text-transparent"
+                    : "inline-block"
+                }
+              >
+                {word}
+              </motion.span>
+            </Fragment>
+          );
+        })}
       </motion.span>
     </AnimatePresence>
   );

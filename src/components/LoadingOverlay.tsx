@@ -21,7 +21,7 @@ export function LoadingOverlay({ visible, progress }: Props) {
         >
           <div className="relative mb-10 h-px w-[min(280px,70vw)] overflow-hidden bg-[var(--bg-tertiary)]">
             <motion.div
-              className="h-full bg-gradient-to-r from-white/10 via-white/60 to-white/30"
+              className="h-full bg-gradient-to-r from-[var(--accent-blue)]/20 via-[var(--accent-cyan)]/70 to-[var(--accent-blue)]/30"
               initial={{ width: "0%" }}
               animate={{ width: `${pct}%` }}
               transition={{ duration: 0.2 }}
@@ -34,7 +34,7 @@ export function LoadingOverlay({ visible, progress }: Props) {
             {pct}%
           </p>
           <motion.div
-            className="mt-12 h-1 w-1 rounded-full bg-white/40"
+            className="mt-12 h-1 w-1 rounded-full bg-[var(--accent-cyan)]/50"
             animate={{ scale: [1, 1.8, 1], opacity: [0.4, 1, 0.4] }}
             transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
           />

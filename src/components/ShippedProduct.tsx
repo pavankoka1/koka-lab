@@ -249,7 +249,8 @@ function PerfTraceCanvas({ accent }: { accent: string }) {
     let raf = 0;
     let alive = true;
 
-    const white = { r: 255, g: 255, b: 255 };
+    const teal = { r: 0, g: 255, b: 200 };
+    const blue = { r: 0, g: 180, b: 255 };
 
     const FRAME_MS = 1000 / 30;
     let lastDraw = 0;
@@ -280,11 +281,11 @@ function PerfTraceCanvas({ accent }: { accent: string }) {
         const x = lerp(p.ax, p.bx, phase) + p.jitter + wob;
         const y = lerp(p.ay, p.by, phase) + p.jitter * 0.8 + drift;
 
-        /* Monochrome: white particles */
+        /* Ocean teal→blue particle blend */
         const m = p.mix * (0.5 + phase * 0.5);
-        const r = Math.round(lerp(white.r, white.r, m));
-        const g = Math.round(lerp(white.g, white.g, m));
-        const b = Math.round(lerp(white.b, white.b, m));
+        const r = Math.round(lerp(teal.r, blue.r, m));
+        const g = Math.round(lerp(teal.g, blue.g, m));
+        const b = Math.round(lerp(teal.b, blue.b, m));
 
         const alpha = 0.45 + 0.4 * Math.sin(elapsed * 0.5 + p.seed) * 0.3;
         ctx.fillStyle = `rgba(${r},${g},${b},${Math.max(0.15, Math.min(0.85, alpha))})`;

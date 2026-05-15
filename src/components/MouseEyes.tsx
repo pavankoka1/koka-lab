@@ -106,7 +106,7 @@ export function MouseEyes() {
         ctx.fill();
       });
 
-      ctx.fillStyle = "rgba(255,255,255,0.6)";
+      ctx.fillStyle = "rgba(0,255,200,0.5)";
       [leftEyeX, rightEyeX].forEach((cx) => {
         const px1 = cx + px + 1;
         const py1 = eyeY + py - 1;

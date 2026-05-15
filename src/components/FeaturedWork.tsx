@@ -26,7 +26,7 @@ export function FeaturedWork() {
         aria-hidden
         className="pointer-events-none absolute inset-0 opacity-60"
         style={{
-          background: `radial-gradient(ellipse 60% 50% at 80% 30%, ${featured.accent}1f 0%, transparent 60%), radial-gradient(ellipse 50% 40% at 12% 80%, rgba(255,255,255,0.04) 0%, transparent 65%)`,
+          background: `radial-gradient(ellipse 60% 50% at 80% 30%, ${featured.accent}1f 0%, transparent 60%), radial-gradient(ellipse 50% 40% at 12% 80%, rgba(0,180,255,0.06) 0%, transparent 65%)`,
         }}
       />
 
@@ -248,7 +248,7 @@ function FeaturedCanvas({ accent }: { accent: string }) {
     let lastDraw = 0;
 
     const accentRGB = parseHex(accent);
-    const white = { r: 255, g: 255, b: 255 };
+    const white = { r: 0, g: 255, b: 200 };
 
     const draw = (now: number) => {
       if (!alive) return;
