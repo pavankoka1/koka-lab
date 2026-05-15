@@ -96,7 +96,7 @@ export default function Home() {
             </ul>
             <div className="mt-12 flex flex-wrap gap-4 font-mono text-xs">
               <a
-                className="rounded-full border border-[var(--stroke)] bg-[var(--bg-secondary)]/60 px-5 py-2.5 text-[var(--text-primary)] transition-colors hover:border-white/20 hover:text-white"
+                className="rounded-full border border-[var(--stroke)] bg-[var(--bg-secondary)]/60 px-5 py-2.5 text-[var(--text-primary)] transition-[colors,transform] duration-200 hover:-translate-y-0.5 hover:border-[var(--accent-blue)]/30 hover:text-[var(--accent-cyan)] active:translate-y-0"
                 href={site.links.linkedin}
                 target="_blank"
                 rel="noopener noreferrer"
@@ -104,7 +104,7 @@ export default function Home() {
                 LinkedIn
               </a>
               <a
-                className="rounded-full border border-[var(--stroke)] bg-[var(--bg-secondary)]/60 px-5 py-2.5 text-[var(--text-primary)] transition-colors hover:border-white/20 hover:text-white"
+                className="rounded-full border border-[var(--stroke)] bg-[var(--bg-secondary)]/60 px-5 py-2.5 text-[var(--text-primary)] transition-[colors,transform] duration-200 hover:-translate-y-0.5 hover:border-[var(--accent-blue)]/30 hover:text-[var(--accent-cyan)] active:translate-y-0"
                 href={site.links.github}
                 target="_blank"
                 rel="noopener noreferrer"
@@ -112,7 +112,7 @@ export default function Home() {
                 GitHub
               </a>
               <a
-                className="rounded-full border border-[var(--stroke)] bg-[var(--bg-secondary)]/60 px-5 py-2.5 text-[var(--text-muted)] transition-colors hover:border-white/20"
+                className="rounded-full border border-[var(--stroke)] bg-[var(--bg-secondary)]/60 px-5 py-2.5 text-[var(--text-muted)] transition-[colors,transform] duration-200 hover:-translate-y-0.5 hover:border-[var(--accent-blue)]/30 active:translate-y-0"
                 href={`mailto:${site.email}`}
               >
                 Email
@@ -125,42 +125,53 @@ export default function Home() {
 
         <section className="px-6 py-28 sm:px-10">
           <div className="mx-auto max-w-3xl">
-            <p className="font-mono text-xs uppercase tracking-[0.35em] text-[var(--text-muted)]">
-              Core stack
-            </p>
-            <div className="mt-6 grid gap-5 sm:grid-cols-3">
-              <div className="rounded-2xl border border-[var(--stroke)] bg-[var(--bg-secondary)]/50 p-5">
-                <p className="font-mono text-[10px] uppercase tracking-[0.28em] text-[var(--text-dim)]">
-                  Frontend
-                </p>
-                <p className="mt-3 text-sm leading-relaxed text-[var(--text-primary)]">
-                  {site.stack.frontend.join(" · ")}
-                </p>
+            <motion.div
+              initial={{ opacity: 0, y: 24, filter: "blur(8px)" }}
+              whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+              viewport={{ once: true, margin: "-80px" }}
+              transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
+            >
+              <p className="font-mono text-xs uppercase tracking-[0.35em] text-[var(--text-muted)]">
+                Core stack
+              </p>
+              <div className="mt-6 grid gap-5 sm:grid-cols-3">
+                {[
+                  { label: "Frontend", items: site.stack.frontend },
+                  { label: "Realtime & graphics", items: site.stack.realtimeAndGraphics },
+                  { label: "Platform", items: site.stack.platform },
+                ].map(({ label, items }, i) => (
+                  <motion.div
+                    key={label}
+                    initial={{ opacity: 0, y: 16 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, margin: "-60px" }}
+                    transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: i * 0.08 }}
+                    className="rounded-2xl border border-[var(--stroke)] bg-[var(--bg-secondary)]/50 p-5"
+                  >
+                    <p className="font-mono text-[10px] uppercase tracking-[0.28em] text-[var(--text-dim)]">
+                      {label}
+                    </p>
+                    <p className="mt-3 text-sm leading-relaxed text-[var(--text-primary)]">
+                      {items.join(" · ")}
+                    </p>
+                  </motion.div>
+                ))}
               </div>
-              <div className="rounded-2xl border border-[var(--stroke)] bg-[var(--bg-secondary)]/50 p-5">
-                <p className="font-mono text-[10px] uppercase tracking-[0.28em] text-[var(--text-dim)]">
-                  Realtime & graphics
-                </p>
-                <p className="mt-3 text-sm leading-relaxed text-[var(--text-primary)]">
-                  {site.stack.realtimeAndGraphics.join(" · ")}
-                </p>
-              </div>
-              <div className="rounded-2xl border border-[var(--stroke)] bg-[var(--bg-secondary)]/50 p-5">
-                <p className="font-mono text-[10px] uppercase tracking-[0.28em] text-[var(--text-dim)]">
-                  Platform
-                </p>
-                <p className="mt-3 text-sm leading-relaxed text-[var(--text-primary)]">
-                  {site.stack.platform.join(" · ")}
-                </p>
-              </div>
-            </div>
-            <p className="mt-14 font-mono text-xs uppercase tracking-[0.35em] text-[var(--text-muted)]">
-              How I build
-            </p>
-            <ScrollWordReveal
-              className="mt-8 text-2xl leading-snug sm:text-3xl sm:leading-tight"
-              text="Protect frame budget. Reduce rendering overhead. Treat real-time correctness as a contract, not a side-effect. The work below is the same craft applied to deliberately small, focused problems — each one a measurable answer to a question worth asking."
-            />
+            </motion.div>
+            <motion.div
+              initial={{ opacity: 0, y: 20, filter: "blur(6px)" }}
+              whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+              viewport={{ once: true, margin: "-60px" }}
+              transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
+            >
+              <p className="mt-14 font-mono text-xs uppercase tracking-[0.35em] text-[var(--text-muted)]">
+                How I build
+              </p>
+              <ScrollWordReveal
+                className="mt-8 text-2xl leading-snug sm:text-3xl sm:leading-tight"
+                text="Protect frame budget. Reduce rendering overhead. Treat real-time correctness as a contract, not a side-effect. The work below is the same craft applied to deliberately small, focused problems — each one a measurable answer to a question worth asking."
+              />
+            </motion.div>
           </div>
         </section>
 
@@ -170,7 +181,13 @@ export default function Home() {
 
         <HorizontalLabs />
 
-        <footer className="border-t border-[var(--stroke)] px-6 py-20 sm:px-10">
+        <motion.footer
+          className="border-t border-[var(--stroke)] px-6 py-20 sm:px-10"
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-40px" }}
+          transition={{ duration: 1.0, ease: [0.16, 1, 0.3, 1] }}
+        >
           <div className="mx-auto flex max-w-6xl flex-col gap-12 sm:flex-row sm:items-start sm:justify-between">
             <div>
               <p className="font-[family-name:var(--font-display)] text-xl font-semibold text-[var(--text-primary)]">
@@ -211,7 +228,7 @@ export default function Home() {
               Next.js · Three.js · R3F
             </p>
           </div>
-        </footer>
+        </motion.footer>
       </main>
     </>
   );

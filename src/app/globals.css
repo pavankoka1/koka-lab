@@ -8,8 +8,11 @@
   --text-primary: #f4f4f8;
   --text-muted: #5c5c6e;
   --text-dim: #3a3a48;
-  --stroke: rgba(255, 255, 255, 0.07);
-  --glow: rgba(255, 255, 255, 0.04);
+  --stroke: rgba(0, 180, 255, 0.10);
+  --glow: rgba(0, 255, 200, 0.06);
+  --accent-cyan: #00ffc8;
+  --accent-blue: #00b4ff;
+  --accent-indigo: #3c64ff;
 }
 
 html {
@@ -23,7 +26,7 @@ body {
 }
 
 ::selection {
-  background: rgba(255, 255, 255, 0.15);
+  background: rgba(0, 255, 200, 0.20);
   color: #fff;
 }
 

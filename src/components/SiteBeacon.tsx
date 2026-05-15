@@ -45,12 +45,12 @@ export function SiteBeacon() {
 
     const css = 88;
 
-    // Monochrome — white opacity system.
-    const accent = "rgba(255,255,255,0.65)";
-    const stroke = "rgba(255,255,255,0.06)";
-    const gradStart = "rgba(255,255,255,0.55)";
-    const gradMid = "rgba(255,255,255,0.35)";
-    const gradEnd = "rgba(255,255,255,0.08)";
+    // Deep Ocean — azure + bioluminescent teal.
+    const accent = "rgba(0,255,200,0.75)";
+    const stroke = "rgba(0,180,255,0.09)";
+    const gradStart = "rgba(0,180,255,0.65)";
+    const gradMid = "rgba(0,255,200,0.45)";
+    const gradEnd = "rgba(0,255,200,0.05)";
 
     let alive = true;
     let raf = 0;

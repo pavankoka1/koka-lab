@@ -279,7 +279,7 @@ function TimelineRow({
   let dotClass: string;
   if (isHit) {
     dotClass =
-      "border-white/60 bg-white/10 shadow-[0_0_18px_rgba(255,255,255,0.18)] ring-2 ring-white/20";
+      "border-[var(--accent-cyan)]/60 bg-[var(--accent-cyan)]/10 shadow-[0_0_18px_rgba(0,255,200,0.30)] ring-2 ring-[var(--accent-cyan)]/20";
   } else {
     dotClass = "border-[var(--stroke)] bg-[var(--bg-deep)] shadow-none";
   }

@@ -63,9 +63,9 @@ function LabCard({ lab, index }: { lab: Lab; index: number }) {
         duration: 0.55,
         ease: [0.22, 1, 0.36, 1],
       }}
-      className="group relative flex min-h-[440px] w-[min(380px,86vw)] shrink-0 snap-center flex-col overflow-hidden rounded-2xl border border-[var(--stroke)] bg-[var(--bg-secondary)]/80 p-7 transition-[transform,box-shadow,border-color] duration-500 hover:-translate-y-1 hover:border-white/10"
+      className="group relative flex min-h-[440px] w-[min(380px,86vw)] shrink-0 snap-center flex-col overflow-hidden rounded-2xl border border-[var(--stroke)] bg-[var(--bg-secondary)]/80 p-7 transition-[transform,box-shadow,border-color] duration-500 hover:-translate-y-1 hover:border-[var(--accent-blue)]/15"
       style={{
-        boxShadow: `0 0 0 1px rgba(255,255,255,0.025), 0 0 80px -36px ${lab.accent}33`,
+        boxShadow: `0 0 0 1px rgba(0,180,255,0.04), 0 0 80px -36px ${lab.accent}33`,
       }}
     >
       <span
