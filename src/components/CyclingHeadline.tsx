@@ -19,46 +19,46 @@ const HEROES = [
 const HERO_INTERVAL_MS = 4500;
 
 /**
- * Per-word stagger choreography.
+ * Per-word stagger choreography — Slow Bloom pattern.
  *
- * Enter — left to right, default `staggerChildren`. Words arrive in
- * reading order: settle from below as opacity rises.
+ * Enter — left to right, slow stagger. Words bloom in from blur,
+ * arriving in reading order with a gentle opacity fade.
  *
  * Exit  — right to left, `staggerDirection: -1`. The line dissolves
- * from the end backward, like a wave receding, then the next line
- * builds back up.
+ * from the end backward into blur, like a wave receding, then the
+ * next line blooms back up.
  *
- * Easing — `[0.22, 1, 0.36, 1]` is an "expo out" curve — sharp depart,
- * long, soft landing. The right feel for a hero typeset.
+ * Easing — `[0.16, 1, 0.3, 1]` is a soft expo-out curve suited for
+ * the longer 1.8 s bloom duration.
  *
- * Performance — only `opacity` and `transform` are animated. Both are
- * compositor properties (no layout, no paint, no filter pass), so the
- * whole sequence runs on the GPU. No `will-change` is set — that hint
- * promotes layers permanently and was leaking GPU memory while idle.
+ * Performance — `opacity` and `filter: blur` are animated. Blur is a
+ * paint property (not a transform), so it triggers a composited layer
+ * per element. For short hero text this is acceptable; avoid applying
+ * to long lists or rapidly updating text.
  */
 const PARENT_VARIANTS = {
   enter: {
-    transition: { staggerChildren: 0.06, delayChildren: 0.03 },
+    transition: { staggerChildren: 0.42, delayChildren: 0.08 },
   },
   exit: {
-    transition: { staggerChildren: 0.035, staggerDirection: -1 },
+    transition: { staggerChildren: 0.18, staggerDirection: -1 },
   },
 } as const;
 
 const WORD_VARIANTS = {
   enter: {
     opacity: 1,
-    y: 0,
+    filter: "blur(0px)",
   },
   exit: {
     opacity: 0,
-    y: 18,
+    filter: "blur(8px)",
   },
 } as const;
 
 const WORD_TRANSITION = {
-  duration: 0.5,
-  ease: [0.22, 1, 0.36, 1] as const,
+  duration: 1.8,
+  ease: [0.16, 1, 0.3, 1] as const,
 };
 
 export function CyclingHeadline() {

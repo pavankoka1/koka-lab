@@ -73,7 +73,7 @@ export default function Home() {
             <p className="font-mono text-xs uppercase tracking-[0.45em] text-[var(--text-muted)]">
               {site.author} · senior frontend engineer · sde iii
             </p>
-            <h1 className="mt-6 max-w-[14ch] font-[family-name:var(--font-display)] text-[clamp(2.6rem,7.4vw,5rem)] font-semibold leading-[0.96] tracking-tight text-[var(--text-primary)]">
+            <h1 className="mt-6 max-w-[14ch] font-[family-name:var(--font-display)] text-[clamp(2.6rem,7.4vw,5rem)] font-light leading-[0.96] tracking-tight text-[var(--text-primary)]">
               <span
                 className="relative block"
                 style={{ minHeight: "1.95em" }}
