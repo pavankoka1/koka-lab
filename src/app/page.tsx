@@ -66,14 +66,14 @@ export default function Home() {
       <main className="relative z-10">
         <section className="relative flex min-h-[100svh] flex-col justify-end px-6 pb-24 pt-44 sm:px-10 sm:pb-32 sm:pt-48">
           <motion.div
-            initial={{ opacity: 0, y: 28 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
+            initial={{ opacity: 0, filter: "blur(12px)" }}
+            animate={{ opacity: 1, filter: "blur(0px)" }}
+            transition={{ duration: 2.2, ease: [0.16, 1, 0.3, 1] }}
           >
             <p className="font-mono text-xs uppercase tracking-[0.45em] text-[var(--text-muted)]">
               {site.author} · senior frontend engineer · sde iii
             </p>
-            <h1 className="mt-6 max-w-[14ch] font-[family-name:var(--font-display)] text-[clamp(2.6rem,7.4vw,5rem)] font-semibold leading-[0.96] tracking-tight text-[var(--text-primary)]">
+            <h1 className="mt-6 max-w-[14ch] font-[family-name:var(--font-display)] text-[clamp(2.6rem,7.4vw,5rem)] font-light leading-[0.96] tracking-tight text-[var(--text-primary)]">
               <span
                 className="relative block"
                 style={{ minHeight: "1.95em" }}
@@ -96,7 +96,7 @@ export default function Home() {
             </ul>
             <div className="mt-12 flex flex-wrap gap-4 font-mono text-xs">
               <a
-                className="rounded-full border border-[var(--stroke)] bg-[var(--bg-secondary)]/60 px-5 py-2.5 text-[var(--text-primary)] transition-colors hover:border-violet-500/40 hover:text-[var(--accent-hot)]"
+                className="rounded-full border border-[var(--stroke)] bg-[var(--bg-secondary)]/60 px-5 py-2.5 text-[var(--text-primary)] transition-colors hover:border-white/20 hover:text-white"
                 href={site.links.linkedin}
                 target="_blank"
                 rel="noopener noreferrer"
@@ -104,7 +104,7 @@ export default function Home() {
                 LinkedIn
               </a>
               <a
-                className="rounded-full border border-[var(--stroke)] bg-[var(--bg-secondary)]/60 px-5 py-2.5 text-[var(--text-primary)] transition-colors hover:border-violet-500/40 hover:text-[var(--accent-hot)]"
+                className="rounded-full border border-[var(--stroke)] bg-[var(--bg-secondary)]/60 px-5 py-2.5 text-[var(--text-primary)] transition-colors hover:border-white/20 hover:text-white"
                 href={site.links.github}
                 target="_blank"
                 rel="noopener noreferrer"
@@ -112,7 +112,7 @@ export default function Home() {
                 GitHub
               </a>
               <a
-                className="rounded-full border border-[var(--stroke)] bg-[var(--bg-secondary)]/60 px-5 py-2.5 text-[var(--text-muted)] transition-colors hover:border-violet-500/40"
+                className="rounded-full border border-[var(--stroke)] bg-[var(--bg-secondary)]/60 px-5 py-2.5 text-[var(--text-muted)] transition-colors hover:border-white/20"
                 href={`mailto:${site.email}`}
               >
                 Email

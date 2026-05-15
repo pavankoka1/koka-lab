@@ -1,6 +1,7 @@
 "use client";
 
 import { site, type Lab } from "@/lib/site";
+import { hostnameOf } from "@/lib/utils";
 import { motion } from "framer-motion";
 import { useEffect, useRef } from "react";
 
@@ -135,14 +136,6 @@ function LabCard({ lab, index }: { lab: Lab; index: number }) {
       </div>
     </motion.a>
   );
-}
-
-function hostnameOf(href: string) {
-  try {
-    return new URL(href).hostname.replace(/^www\./, "");
-  } catch {
-    return href;
-  }
 }
 
 /**

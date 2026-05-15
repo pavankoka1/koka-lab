@@ -21,12 +21,9 @@ import {
   useRef,
   useState,
 } from "react";
+import { lerp } from "@/lib/utils";
 
 const GAP = "1.5rem"; /* gap-6 */
-
-function lerp(a: number, b: number, t: number) {
-  return a + (b - a) * t;
-}
 
 function clamp01(x: number) {
   return Math.min(1, Math.max(0, x));
@@ -206,7 +203,7 @@ export const Timeline = forwardRef<HTMLElement, Props>(function Timeline(
         </p>
         <h2
           id="timeline-heading"
-          className="mt-4 max-w-xl font-[family-name:var(--font-display)] text-3xl font-semibold tracking-tight text-[var(--text-primary)] sm:text-4xl"
+          className="mt-4 max-w-xl font-[family-name:var(--font-display)] text-3xl font-light tracking-tight text-[var(--text-primary)] sm:text-4xl"
         >
           Six years across real-time gaming, fintech, and edtech.
         </h2>
@@ -282,7 +279,7 @@ function TimelineRow({
   let dotClass: string;
   if (isHit) {
     dotClass =
-      "border-violet-400 bg-violet-500/25 shadow-[0_0_22px_rgba(167,139,250,0.5)] ring-2 ring-violet-400/35";
+      "border-white/60 bg-white/10 shadow-[0_0_18px_rgba(255,255,255,0.18)] ring-2 ring-white/20";
   } else {
     dotClass = "border-[var(--stroke)] bg-[var(--bg-deep)] shadow-none";
   }
@@ -311,7 +308,7 @@ function TimelineRow({
           {entry.from} — {entry.to}
         </p>
         <h3
-          className={`mt-2 font-[family-name:var(--font-display)] text-xl font-semibold sm:text-2xl ${
+          className={`mt-2 font-[family-name:var(--font-display)] text-xl font-light sm:text-2xl ${
             isHit ? "text-[var(--text-primary)]" : "text-[var(--text-muted)]"
           }`}
         >
@@ -319,7 +316,7 @@ function TimelineRow({
         </h3>
         <p
           className={`mt-1 text-sm font-medium ${
-            isHit ? "text-[var(--accent-hot)]" : "text-[var(--text-muted)]"
+            isHit ? "text-[var(--text-primary)]" : "text-[var(--text-muted)]"
           }`}
         >
           {entry.role}

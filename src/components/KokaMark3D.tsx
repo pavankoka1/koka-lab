@@ -86,7 +86,7 @@ function WordmarkScene() {
       <pointLight
         ref={keyLight}
         position={[0.6, 0.4, 2.2]}
-        color="#c4b5fd"
+        color="#e8e4f0"
         distance={6}
       />
       <pointLight
@@ -148,7 +148,7 @@ export function KokaMark3D() {
       <div className="fixed right-5 top-5 z-[60] sm:right-8 sm:top-8">
         <a
           href="/"
-          className="group flex items-center gap-2 rounded-2xl border border-[var(--stroke)] bg-[var(--bg-secondary)]/90 px-4 py-2.5 font-mono text-sm font-semibold tracking-[0.2em] text-[var(--text-primary)] shadow-[0_0_40px_var(--glow)] backdrop-blur-md transition-colors hover:border-violet-500/35"
+          className="group flex items-center gap-2 rounded-2xl border border-[var(--stroke)] bg-[var(--bg-secondary)]/90 px-4 py-2.5 font-mono text-sm font-semibold tracking-[0.2em] text-[var(--text-primary)] shadow-[0_0_40px_var(--glow)] backdrop-blur-md transition-colors hover:border-white/20"
           aria-label={`${site.name} — home`}
         >
           {site.brand}
@@ -161,7 +161,7 @@ export function KokaMark3D() {
     <div className="fixed right-4 top-4 z-[60] sm:right-8 sm:top-8">
       <a
         href="/"
-        className="group block rounded-2xl border border-[var(--stroke)] bg-[var(--bg-secondary)]/80 p-1 shadow-[0_0_48px_var(--glow)] backdrop-blur-md transition-[border-color,box-shadow] duration-300 hover:border-violet-500/35 hover:shadow-[0_0_64px_rgba(139,92,246,0.22)]"
+        className="group block rounded-2xl border border-[var(--stroke)] bg-[var(--bg-secondary)]/80 p-1 shadow-[0_0_48px_var(--glow)] backdrop-blur-md transition-[border-color,box-shadow] duration-300 hover:border-white/20 hover:shadow-[0_0_64px_rgba(255,255,255,0.06)]"
         aria-label={`${site.name} — home`}
       >
         <div className="relative h-[52px] w-[min(42vw,200px)] overflow-hidden rounded-[14px] sm:h-[56px] sm:w-[220px]">

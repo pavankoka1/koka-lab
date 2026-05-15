@@ -45,20 +45,12 @@ export function SiteBeacon() {
 
     const css = 88;
 
-    // ---- CSS variables: read ONCE at mount --------------------------------
-    const root = document.documentElement;
-    const accent =
-      getComputedStyle(root).getPropertyValue("--accent").trim() || "#a78bfa";
-    const dim =
-      getComputedStyle(root).getPropertyValue("--text-dim").trim() || "#3a3a48";
-    const stroke =
-      getComputedStyle(root).getPropertyValue("--stroke").trim() ||
-      "rgba(167,139,250,0.12)";
-
-    // Pre-build the static gradient stop colors that don't depend on time.
-    const gradStart = `${accent}cc`;
-    const gradMid = "rgba(196,181,253,0.55)";
-    const gradEnd = `${dim}99`;
+    // Monochrome — white opacity system.
+    const accent = "rgba(255,255,255,0.65)";
+    const stroke = "rgba(255,255,255,0.06)";
+    const gradStart = "rgba(255,255,255,0.55)";
+    const gradMid = "rgba(255,255,255,0.35)";
+    const gradEnd = "rgba(255,255,255,0.08)";
 
     let alive = true;
     let raf = 0;

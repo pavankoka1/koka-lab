@@ -1,6 +1,7 @@
 "use client";
 
 import { site } from "@/lib/site";
+import { easeInOutCubic, hostnameOf, lerp, parseHex } from "@/lib/utils";
 import { motion } from "framer-motion";
 import { useEffect, useRef } from "react";
 
@@ -25,17 +26,17 @@ export function FeaturedWork() {
         aria-hidden
         className="pointer-events-none absolute inset-0 opacity-60"
         style={{
-          background: `radial-gradient(ellipse 60% 50% at 80% 30%, ${featured.accent}1f 0%, transparent 60%), radial-gradient(ellipse 50% 40% at 12% 80%, rgba(167,139,250,0.12) 0%, transparent 65%)`,
+          background: `radial-gradient(ellipse 60% 50% at 80% 30%, ${featured.accent}1f 0%, transparent 60%), radial-gradient(ellipse 50% 40% at 12% 80%, rgba(255,255,255,0.04) 0%, transparent 65%)`,
         }}
       />
 
       <div className="relative mx-auto grid max-w-6xl gap-14 px-6 py-28 sm:px-10 lg:grid-cols-[minmax(0,1.05fr)_minmax(0,1fr)] lg:gap-16">
         <div className="relative">
           <motion.p
-            initial={{ opacity: 0, y: 12 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            initial={{ opacity: 0, filter: "blur(8px)" }}
+            whileInView={{ opacity: 1, filter: "blur(0px)" }}
             viewport={{ once: true, margin: "-80px" }}
-            transition={{ duration: 0.5 }}
+            transition={{ duration: 1.8, ease: [0.16, 1, 0.3, 1] }}
             className="font-mono text-xs uppercase tracking-[0.45em] text-[var(--text-muted)]"
           >
             <span style={{ color: featured.accent }}>●</span>{" "}
@@ -44,30 +45,30 @@ export function FeaturedWork() {
 
           <motion.h2
             id="featured-heading"
-            initial={{ opacity: 0, y: 16 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            initial={{ opacity: 0, filter: "blur(10px)" }}
+            whileInView={{ opacity: 1, filter: "blur(0px)" }}
             viewport={{ once: true, margin: "-80px" }}
-            transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-            className="mt-6 max-w-xl font-[family-name:var(--font-display)] text-[clamp(2.4rem,5.4vw,4.2rem)] font-semibold leading-[1.02] tracking-tight text-[var(--text-primary)]"
+            transition={{ duration: 2, ease: [0.16, 1, 0.3, 1] }}
+            className="mt-6 max-w-xl font-[family-name:var(--font-display)] text-[clamp(2.4rem,5.4vw,4.2rem)] font-light leading-[1.02] tracking-tight text-[var(--text-primary)]"
           >
             {featured.title}
           </motion.h2>
 
           <motion.p
-            initial={{ opacity: 0, y: 12 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            initial={{ opacity: 0, filter: "blur(8px)" }}
+            whileInView={{ opacity: 1, filter: "blur(0px)" }}
             viewport={{ once: true, margin: "-80px" }}
-            transition={{ duration: 0.6, delay: 0.05 }}
+            transition={{ duration: 1.8, ease: [0.16, 1, 0.3, 1], delay: 0.3 }}
             className="mt-4 max-w-md font-[family-name:var(--font-display)] text-lg italic text-[var(--text-muted)]"
           >
             {featured.tagline}
           </motion.p>
 
           <motion.p
-            initial={{ opacity: 0, y: 12 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            initial={{ opacity: 0, filter: "blur(8px)" }}
+            whileInView={{ opacity: 1, filter: "blur(0px)" }}
             viewport={{ once: true, margin: "-80px" }}
-            transition={{ duration: 0.6, delay: 0.1 }}
+            transition={{ duration: 1.8, ease: [0.16, 1, 0.3, 1], delay: 0.5 }}
             className="mt-8 max-w-xl text-base leading-relaxed text-[var(--text-muted)] sm:text-[17px]"
           >
             {featured.description}
@@ -77,10 +78,10 @@ export function FeaturedWork() {
             {featured.notes.map((note, i) => (
               <motion.div
                 key={note.label}
-                initial={{ opacity: 0, y: 12 }}
-                whileInView={{ opacity: 1, y: 0 }}
+                initial={{ opacity: 0, filter: "blur(8px)" }}
+                whileInView={{ opacity: 1, filter: "blur(0px)" }}
                 viewport={{ once: true, margin: "-80px" }}
-                transition={{ duration: 0.5, delay: 0.15 + i * 0.05 }}
+                transition={{ duration: 1.8, ease: [0.16, 1, 0.3, 1], delay: 0.15 + i * 0.12 }}
                 className="rounded-xl border border-[var(--stroke)] bg-[var(--bg-secondary)]/50 p-4"
               >
                 <p
@@ -142,14 +143,6 @@ export function FeaturedWork() {
       </div>
     </section>
   );
-}
-
-function hostnameOf(href: string) {
-  try {
-    return new URL(href).hostname.replace(/^www\./, "");
-  } catch {
-    return href;
-  }
 }
 
 /**
@@ -251,12 +244,17 @@ function FeaturedCanvas({ accent }: { accent: string }) {
     const t0 = performance.now();
     let raf = 0;
     let alive = true;
+    const FRAME_MS = 1000 / 30;
+    let lastDraw = 0;
 
     const accentRGB = parseHex(accent);
-    const violet = { r: 167, g: 139, b: 250 };
+    const white = { r: 255, g: 255, b: 255 };
 
     const draw = (now: number) => {
       if (!alive) return;
+      raf = requestAnimationFrame(draw);
+      if (now - lastDraw < FRAME_MS) return;
+      lastDraw = now;
       const elapsed = (now - t0) / 1000;
 
       ctx.clearRect(0, 0, cssW, cssH);
@@ -278,11 +276,11 @@ function FeaturedCanvas({ accent }: { accent: string }) {
         const x = lerp(p.ax, p.bx, phase) + p.jitter + wob;
         const y = lerp(p.ay, p.by, phase) + p.jitter * 0.8 + drift;
 
-        /* Two-tone mix: warm violet to accent (amber) */
+        /* Two-tone mix: white to accent */
         const m = p.mix * (0.5 + phase * 0.5);
-        const r = Math.round(lerp(violet.r, accentRGB.r, m));
-        const g = Math.round(lerp(violet.g, accentRGB.g, m));
-        const b = Math.round(lerp(violet.b, accentRGB.b, m));
+        const r = Math.round(lerp(white.r, accentRGB.r, m));
+        const g = Math.round(lerp(white.g, accentRGB.g, m));
+        const b = Math.round(lerp(white.b, accentRGB.b, m));
 
         const alpha = 0.45 + 0.4 * Math.sin(elapsed * 0.5 + p.seed) * 0.3;
         ctx.fillStyle = `rgba(${r},${g},${b},${Math.max(0.15, Math.min(0.85, alpha))})`;
@@ -291,8 +289,6 @@ function FeaturedCanvas({ accent }: { accent: string }) {
         ctx.arc(x, y, 1.1, 0, Math.PI * 2);
         ctx.fill();
       }
-
-      raf = requestAnimationFrame(draw);
     };
     raf = requestAnimationFrame(draw);
 
@@ -317,22 +313,3 @@ function FeaturedCanvas({ accent }: { accent: string }) {
   );
 }
 
-function lerp(a: number, b: number, t: number) {
-  return a + (b - a) * t;
-}
-
-function easeInOutCubic(t: number) {
-  return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
-}
-
-function parseHex(hex: string) {
-  const h = hex.replace("#", "");
-  const v = h.length === 3
-    ? h.split("").map((c) => c + c).join("")
-    : h;
-  return {
-    r: parseInt(v.slice(0, 2), 16) || 0,
-    g: parseInt(v.slice(2, 4), 16) || 0,
-    b: parseInt(v.slice(4, 6), 16) || 0,
-  };
-}

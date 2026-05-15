@@ -50,21 +50,13 @@ export function ParticleLogoMark() {
     const MID_Y = SIZE * 0.50;
     const ARM_X = SIZE * 0.72;
 
-    // ---- CSS variables: read ONCE at mount ---------------------------------
-    const root = document.documentElement;
-    const accent =
-      getComputedStyle(root).getPropertyValue("--accent").trim() || "#a78bfa";
-    const stroke =
-      getComputedStyle(root).getPropertyValue("--stroke").trim() ||
-      "rgba(167,139,250,0.12)";
-    const accentRGB = parseHex(accent);
-    const ar = accentRGB.r;
-    const ag = accentRGB.g;
-    const ab = accentRGB.b;
-
-    // Pre-build the static rgba strings we need every frame.
-    const baseStroke = `rgba(${ar},${ag},${ab},0.32)`;
-    const innerRingStroke = `rgba(${ar},${ag},${ab},0.10)`;
+    // Monochrome — white opacity hierarchy, no accent reads needed.
+    const ar = 255;
+    const ag = 255;
+    const ab = 255;
+    const baseStroke = "rgba(255,255,255,0.22)";
+    const innerRingStroke = "rgba(255,255,255,0.06)";
+    const stroke = "rgba(255,255,255,0.06)";
 
     let alive = true;
     let raf = 0;
@@ -195,11 +187,11 @@ export function ParticleLogoMark() {
 
   return (
     <div className="fixed left-5 top-5 z-[60] sm:left-8 sm:top-8" aria-hidden>
-      <div className="flex items-center gap-3 rounded-full border border-[var(--stroke)] bg-[var(--bg-secondary)]/70 py-2 pl-2 pr-3.5 shadow-[0_0_30px_rgba(139,92,246,0.12)] backdrop-blur-md">
+      <div className="flex items-center gap-3 rounded-full border border-[var(--stroke)] bg-[var(--bg-secondary)]/70 py-2 pl-2 pr-3.5 shadow-[0_0_30px_rgba(255,255,255,0.04)] backdrop-blur-md">
         <canvas ref={canvasRef} width={52} height={52} className="block" />
         <div className="min-w-[160px]">
           <p className="font-[family-name:var(--font-display)] text-[13px] font-semibold leading-none tracking-tight text-[var(--text-primary)]">
-            <span className="bg-gradient-to-r from-[var(--text-primary)] via-[var(--accent-hot)] to-[var(--text-primary)] bg-[length:200%_100%] bg-clip-text text-transparent [animation:shimmerSlide_6s_linear_infinite]">
+            <span className="bg-gradient-to-r from-[var(--text-primary)] via-white/60 to-[var(--text-primary)] bg-[length:200%_100%] bg-clip-text text-transparent [animation:shimmerSlide_6s_linear_infinite]">
               {site.author}
             </span>
           </p>
@@ -223,18 +215,3 @@ export function ParticleLogoMark() {
   );
 }
 
-function parseHex(hex: string) {
-  const h = hex.replace("#", "");
-  const v =
-    h.length === 3
-      ? h
-          .split("")
-          .map((c) => c + c)
-          .join("")
-      : h;
-  return {
-    r: parseInt(v.slice(0, 2), 16) || 167,
-    g: parseInt(v.slice(2, 4), 16) || 139,
-    b: parseInt(v.slice(4, 6), 16) || 250,
-  };
-}
