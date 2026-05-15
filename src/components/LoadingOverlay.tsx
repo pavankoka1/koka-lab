@@ -15,13 +15,13 @@ export function LoadingOverlay({ visible, progress }: Props) {
       {visible && (
         <motion.div
           className="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-[var(--bg-deep)]"
-          initial={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+          initial={{ opacity: 1, filter: "blur(0px)" }}
+          exit={{ opacity: 0, filter: "blur(12px)" }}
+          transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1] }}
         >
           <div className="relative mb-10 h-px w-[min(280px,70vw)] overflow-hidden bg-[var(--bg-tertiary)]">
             <motion.div
-              className="h-full bg-gradient-to-r from-violet-500/20 via-violet-400 to-fuchsia-400"
+              className="h-full bg-gradient-to-r from-white/10 via-white/60 to-white/30"
               initial={{ width: "0%" }}
               animate={{ width: `${pct}%` }}
               transition={{ duration: 0.2 }}
@@ -34,7 +34,7 @@ export function LoadingOverlay({ visible, progress }: Props) {
             {pct}%
           </p>
           <motion.div
-            className="mt-12 h-1 w-1 rounded-full bg-violet-400/80"
+            className="mt-12 h-1 w-1 rounded-full bg-white/40"
             animate={{ scale: [1, 1.8, 1], opacity: [0.4, 1, 0.4] }}
             transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
           />
