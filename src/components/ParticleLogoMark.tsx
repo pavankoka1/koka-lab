@@ -187,7 +187,7 @@ export function ParticleLogoMark() {
 
   return (
     <div className="fixed left-5 top-5 z-[60] sm:left-8 sm:top-8" aria-hidden>
-      <div className="flex items-center gap-3 rounded-full border border-[var(--stroke)] bg-[var(--bg-secondary)]/70 py-2 pl-2 pr-3.5 shadow-[0_0_30px_rgba(139,92,246,0.12)] backdrop-blur-md">
+      <div className="flex items-center gap-3 rounded-full border border-[var(--stroke)] bg-[var(--bg-secondary)]/70 py-2 pl-2 pr-3.5 shadow-[0_0_30px_rgba(255,255,255,0.04)] backdrop-blur-md">
         <canvas ref={canvasRef} width={52} height={52} className="block" />
         <div className="min-w-[160px]">
           <p className="font-[family-name:var(--font-display)] text-[13px] font-semibold leading-none tracking-tight text-[var(--text-primary)]">
