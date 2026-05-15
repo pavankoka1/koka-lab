@@ -96,7 +96,7 @@ export default function Home() {
             </ul>
             <div className="mt-12 flex flex-wrap gap-4 font-mono text-xs">
               <a
-                className="rounded-full border border-[var(--stroke)] bg-[var(--bg-secondary)]/60 px-5 py-2.5 text-[var(--text-primary)] transition-colors hover:border-violet-500/40 hover:text-[var(--accent-hot)]"
+                className="rounded-full border border-[var(--stroke)] bg-[var(--bg-secondary)]/60 px-5 py-2.5 text-[var(--text-primary)] transition-colors hover:border-white/20 hover:text-white"
                 href={site.links.linkedin}
                 target="_blank"
                 rel="noopener noreferrer"
@@ -104,7 +104,7 @@ export default function Home() {
                 LinkedIn
               </a>
               <a
-                className="rounded-full border border-[var(--stroke)] bg-[var(--bg-secondary)]/60 px-5 py-2.5 text-[var(--text-primary)] transition-colors hover:border-violet-500/40 hover:text-[var(--accent-hot)]"
+                className="rounded-full border border-[var(--stroke)] bg-[var(--bg-secondary)]/60 px-5 py-2.5 text-[var(--text-primary)] transition-colors hover:border-white/20 hover:text-white"
                 href={site.links.github}
                 target="_blank"
                 rel="noopener noreferrer"
@@ -112,7 +112,7 @@ export default function Home() {
                 GitHub
               </a>
               <a
-                className="rounded-full border border-[var(--stroke)] bg-[var(--bg-secondary)]/60 px-5 py-2.5 text-[var(--text-muted)] transition-colors hover:border-violet-500/40"
+                className="rounded-full border border-[var(--stroke)] bg-[var(--bg-secondary)]/60 px-5 py-2.5 text-[var(--text-muted)] transition-colors hover:border-white/20"
                 href={`mailto:${site.email}`}
               >
                 Email
