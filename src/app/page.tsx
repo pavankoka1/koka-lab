@@ -66,9 +66,9 @@ export default function Home() {
       <main className="relative z-10">
         <section className="relative flex min-h-[100svh] flex-col justify-end px-6 pb-24 pt-44 sm:px-10 sm:pb-32 sm:pt-48">
           <motion.div
-            initial={{ opacity: 0, y: 28 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
+            initial={{ opacity: 0, filter: "blur(12px)" }}
+            animate={{ opacity: 1, filter: "blur(0px)" }}
+            transition={{ duration: 2.2, ease: [0.16, 1, 0.3, 1] }}
           >
             <p className="font-mono text-xs uppercase tracking-[0.45em] text-[var(--text-muted)]">
               {site.author} · senior frontend engineer · sde iii
