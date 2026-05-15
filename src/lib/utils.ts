@@ -15,11 +15,11 @@ export function parseHex(hex: string) {
           .map((c) => c + c)
           .join("")
       : h;
-  return {
-    r: parseInt(v.slice(0, 2), 16) || 0,
-    g: parseInt(v.slice(2, 4), 16) || 0,
-    b: parseInt(v.slice(4, 6), 16) || 0,
+  const parse = (s: string) => {
+    const n = parseInt(s, 16);
+    return Number.isNaN(n) ? 0 : n;
   };
+  return { r: parse(v.slice(0, 2)), g: parse(v.slice(2, 4)), b: parse(v.slice(4, 6)) };
 }
 
 export function hostnameOf(href: string) {
