@@ -21,12 +21,9 @@ import {
   useRef,
   useState,
 } from "react";
+import { lerp } from "@/lib/utils";
 
 const GAP = "1.5rem"; /* gap-6 */
-
-function lerp(a: number, b: number, t: number) {
-  return a + (b - a) * t;
-}
 
 function clamp01(x: number) {
   return Math.min(1, Math.max(0, x));

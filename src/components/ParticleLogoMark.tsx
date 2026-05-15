@@ -1,6 +1,7 @@
 "use client";
 
 import { site } from "@/lib/site";
+import { parseHex } from "@/lib/utils";
 import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 
@@ -223,18 +224,3 @@ export function ParticleLogoMark() {
   );
 }
 
-function parseHex(hex: string) {
-  const h = hex.replace("#", "");
-  const v =
-    h.length === 3
-      ? h
-          .split("")
-          .map((c) => c + c)
-          .join("")
-      : h;
-  return {
-    r: parseInt(v.slice(0, 2), 16) || 167,
-    g: parseInt(v.slice(2, 4), 16) || 139,
-    b: parseInt(v.slice(4, 6), 16) || 250,
-  };
-}
