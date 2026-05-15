@@ -13,9 +13,9 @@ export function AmbientBackdrop() {
         className="mesh-drift absolute -left-1/2 -top-1/2 h-[200%] w-[200%] opacity-90"
         style={{
           background: `
-            radial-gradient(ellipse 50% 45% at 28% 22%, rgba(139, 92, 246, 0.22) 0%, transparent 55%),
-            radial-gradient(ellipse 40% 50% at 72% 78%, rgba(52, 211, 153, 0.12) 0%, transparent 55%),
-            radial-gradient(ellipse 55% 40% at 50% 48%, rgba(99, 102, 241, 0.08) 0%, transparent 60%)
+            radial-gradient(ellipse 50% 45% at 28% 22%, rgba(0, 180, 255, 0.18) 0%, transparent 55%),
+            radial-gradient(ellipse 40% 50% at 72% 78%, rgba(0, 255, 200, 0.10) 0%, transparent 55%),
+            radial-gradient(ellipse 55% 40% at 50% 48%, rgba(60, 100, 255, 0.07) 0%, transparent 60%)
           `,
         }}
       />
