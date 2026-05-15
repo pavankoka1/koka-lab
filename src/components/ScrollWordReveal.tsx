@@ -13,9 +13,6 @@ type Props = {
   className?: string;
 };
 
-/**
- * Words stay dim; as the block scrolls through the viewport, each word steps toward full brightness.
- */
 export function ScrollWordReveal({ text, className = "" }: Props) {
   const ref = useRef<HTMLParagraphElement>(null);
   const words = text.trim().split(/\s+/);
@@ -29,13 +26,13 @@ export function ScrollWordReveal({ text, className = "" }: Props) {
   return (
     <p ref={ref} className={`flex flex-wrap gap-x-2 gap-y-3 ${className}`}>
       {words.map((word, i) => (
-        <LitWord key={`${i}-${word}`} word={word} index={i} head={head} />
+        <BloomWord key={`${i}-${word}`} word={word} index={i} head={head} />
       ))}
     </p>
   );
 }
 
-function LitWord({
+function BloomWord({
   word,
   index,
   head,
@@ -44,17 +41,14 @@ function LitWord({
   index: number;
   head: MotionValue<number>;
 }) {
-  const color = useTransform(head, (h) => {
-    const t = h - index;
-    if (t >= 0.85) return "var(--text-primary)";
-    if (t >= 0.35) return "var(--text-muted)";
-    return "var(--text-dim)";
-  });
+  const opacity = useTransform(head, [index - 0.5, index + 0.5], [0, 1]);
+  const blurPx = useTransform(head, [index - 0.5, index + 0.5], [8, 0]);
+  const filter = useTransform(blurPx, (b) => `blur(${b.toFixed(2)}px)`);
 
   return (
     <motion.span
-      style={{ color }}
-      className="inline-block font-medium tracking-tight"
+      style={{ opacity, filter }}
+      className="inline-block tracking-tight text-[var(--text-primary)]"
     >
       {word}
     </motion.span>
